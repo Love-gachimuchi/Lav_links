@@ -88,7 +88,7 @@
         <source src="bunny_suit.mp3" type="audio/mpeg">
         Ваш браузер не поддерживает аудио элемент.
     </audio>
-    <div class="container" id="main-content">
+    <div class="container" id="main-content" onmousemove="tiltMenu(event)" onmouseleave="resetTilt()">
         <h1>Love_gachimuchi</h1>
         <a href="https://discord.com/users/1249714694483345458" class="link" target="_blank">Discord</a>
         <a href="https://t.me/Love_gachimuchi" class="link" target="_blank">Telegram</a>
@@ -115,12 +115,18 @@
             }
         }
         
-        document.addEventListener("mousemove", (event) => {
+        function tiltMenu(event) {
             let container = document.getElementById("main-content");
-            let xAxis = (window.innerWidth / 2 - event.pageX) / 25;
-            let yAxis = (window.innerHeight / 2 - event.pageY) / 25;
-            container.style.transform = `perspective(500px) rotateX(${yAxis}deg) rotateY(${-xAxis}deg)`;
-        });
+            let rect = container.getBoundingClientRect();
+            let xAxis = (event.clientX - rect.left - rect.width / 2) / 15;
+            let yAxis = (event.clientY - rect.top - rect.height / 2) / 15;
+            container.style.transform = `perspective(500px) rotateX(${-yAxis}deg) rotateY(${xAxis}deg)`;
+        }
+        
+        function resetTilt() {
+            let container = document.getElementById("main-content");
+            container.style.transform = `perspective(500px) rotateX(0deg) rotateY(0deg)`;
+        }
     </script>
 </body>
 </html>
