@@ -13,10 +13,14 @@
             color: #ff69b4;
             text-align: center;
             padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
         .container {
             max-width: 600px;
-            margin: auto;
             background: rgba(255, 105, 180, 0.2);
             padding: 20px;
             border-radius: 10px;
@@ -42,9 +46,16 @@
             background: #ff1493;
             transform: scale(1.05);
         }
+        audio {
+            display: none;
+        }
     </style>
 </head>
 <body>
+    <audio autoplay loop>
+        <source src="bunny_suit.mp3" type="audio/mpeg">
+        Ваш браузер не поддерживает аудио элемент.
+    </audio>
     <div class="container">
         <h1>Love_gachimuchi</h1>
         <a href="https://discord.com/users/1249714694483345458" class="link" target="_blank">Discord</a>
