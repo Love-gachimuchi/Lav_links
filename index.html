@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Links</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        body {
+            background: linear-gradient(-45deg, #ffb6c1, #ffffff, #ffb6c1);
+            background-size: 400% 400%;
+            animation: gradientBG 5s infinite alternate;
+            font-family: 'Press Start 2P', cursive;
+            text-align: center;
+            color: #ff69b4;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .link {
+            text-decoration: none;
+            color: white;
+            background: #ff69b4;
+            padding: 15px 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px #ff69b4;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .link:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 0px 20px #ff1493;
+        }
+
+        .music {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Neon Links</h1>
+        <a href="#" class="link">Link 1</a>
+        <a href="#" class="link">Link 2</a>
+        <a href="#" class="link">Link 3</a>
+    </div>
+
+    <audio id="music" class="music" loop>
+        <source src="bunny_suit.mp3" type="audio/mpeg">
+    </audio>
+    <button onclick="toggleMusic()" class="link">Play/Pause Music</button>
+    
+    <script>
+        function toggleMusic() {
+            var audio = document.getElementById('music');
+            if (audio.paused) {
+                audio.play();
+            } else {
+                audio.pause();
+            }
+        }
+    </script>
+</body>
+</html>
