@@ -19,6 +19,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            position: relative;
         }
         .start-screen {
             position: absolute;
@@ -39,9 +40,9 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
-            transform: perspective(500px) rotateX(0deg) rotateY(0deg);
-            transition: transform 0.1s ease-out;
             display: none;
+            position: relative;
+            z-index: 5;
         }
         .petal {
             position: absolute;
@@ -51,10 +52,11 @@
             border-radius: 50%;
             opacity: 0.8;
             animation: fall linear infinite;
+            top: -10vh;
         }
         @keyframes fall {
             0% {
-                transform: translateY(-10vh) rotate(0deg);
+                transform: translateY(0) rotate(0deg);
                 opacity: 1;
             }
             100% {
@@ -62,11 +64,39 @@
                 opacity: 0;
             }
         }
+        .music-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            background: rgba(255, 105, 180, 0.8);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+        }
+        .music-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .music-button:hover {
+            color: #ff1493;
+        }
+        .volume-slider {
+            width: 100px;
+        }
     </style>
 </head>
 <body>
     <div class="start-screen" onclick="startSite()">НАЖМИТЕ ДЛЯ ВХОДА</div>
-    <button class="music-button" id="music-button" onclick="toggleMusic()">🔊 Музыка</button>
+    <div class="music-container" id="music-container" style="display: none;">
+        <button class="music-button" onclick="toggleMusic()">🔊</button>
+        <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.01" value="0.5" onchange="setVolume()">
+    </div>
     <audio id="bg-music" loop>
         <source src="bunny_suit.mp3" type="audio/mpeg">
         Ваш браузер не поддерживает аудио элемент.
@@ -81,11 +111,10 @@
         function startSite() {
             document.querySelector('.start-screen').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
+            document.getElementById('music-container').style.display = 'flex';
             let music = document.getElementById('bg-music');
-            let musicButton = document.getElementById('music-button');
-            
             music.play().catch(() => {
-                musicButton.style.display = 'block';
+                document.getElementById('music-container').style.display = 'flex';
             });
             createPetals();
         }
@@ -97,6 +126,12 @@
             } else {
                 music.pause();
             }
+        }
+        
+        function setVolume() {
+            let music = document.getElementById('bg-music');
+            let volume = document.getElementById('volume-slider').value;
+            music.volume = volume;
         }
         
         function createPetals() {
