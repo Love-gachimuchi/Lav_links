@@ -50,6 +50,7 @@
             display: none;
             position: relative;
             z-index: 5;
+            transition: transform 0.1s ease-out;
         }
         .petal {
             position: absolute;
@@ -110,7 +111,7 @@
         Ваш браузер не поддерживает аудио элемент.
     </audio>
     <div class="petal-container" id="petal-container"></div>
-    <div class="container" id="main-content">
+    <div class="container" id="main-content" onmousemove="tiltMenu(event)" onmouseleave="resetTilt()">
         <h1>Love_gachimuchi</h1>
         <a href="https://discord.com/users/1249714694483345458" class="link" target="_blank">Discord</a>
         <a href="https://t.me/Love_gachimuchi" class="link" target="_blank">Telegram</a>
@@ -127,16 +128,10 @@
             });
             createPetals();
         }
-        function createPetals() {
-            const petalContainer = document.getElementById('petal-container');
-            setInterval(() => {
-                let petal = document.createElement('div');
-                petal.classList.add('petal');
-                petal.style.left = Math.random() * 100 + 'vw';
-                petal.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                petalContainer.appendChild(petal);
-                setTimeout(() => petal.remove(), 5000);
-            }, 300);
+        function setVolume() {
+            let music = document.getElementById('bg-music');
+            let volumeSlider = document.getElementById('volume-slider');
+            music.volume = volumeSlider.value;
         }
     </script>
 </body>
