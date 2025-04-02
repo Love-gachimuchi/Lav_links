@@ -43,41 +43,24 @@
             transition: transform 0.1s ease-out;
             display: none;
         }
-        h1 {
-            font-size: 24px;
-            text-shadow: 2px 2px #ff1493;
-        }
-        .link {
-            display: block;
-            padding: 15px;
-            margin: 10px 0;
-            background: #ff69b4;
-            border-radius: 5px;
-            text-decoration: none;
-            color: white;
-            font-size: 18px;
-            box-shadow: 3px 3px #ff1493;
-            transition: 0.3s;
-        }
-        .link:hover {
-            background: #ff1493;
-            transform: scale(1.05);
-        }
-        .music-button {
+        .petal {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            background: #ff69b4;
-            color: white;
-            border: none;
-            padding: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-            display: none;
+            width: 15px;
+            height: 15px;
+            background: pink;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fall linear infinite;
         }
-        .music-button:hover {
-            background: #ff1493;
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -88,7 +71,7 @@
         <source src="bunny_suit.mp3" type="audio/mpeg">
         Ваш браузер не поддерживает аудио элемент.
     </audio>
-    <div class="container" id="main-content" onmousemove="tiltMenu(event)" onmouseleave="resetTilt()">
+    <div class="container" id="main-content">
         <h1>Love_gachimuchi</h1>
         <a href="https://discord.com/users/1249714694483345458" class="link" target="_blank">Discord</a>
         <a href="https://t.me/Love_gachimuchi" class="link" target="_blank">Telegram</a>
@@ -104,6 +87,7 @@
             music.play().catch(() => {
                 musicButton.style.display = 'block';
             });
+            createPetals();
         }
         
         function toggleMusic() {
@@ -115,17 +99,16 @@
             }
         }
         
-        function tiltMenu(event) {
-            let container = document.getElementById("main-content");
-            let rect = container.getBoundingClientRect();
-            let xAxis = (event.clientX - rect.left - rect.width / 2) / 15;
-            let yAxis = (event.clientY - rect.top - rect.height / 2) / 15;
-            container.style.transform = `perspective(500px) rotateX(${-yAxis}deg) rotateY(${xAxis}deg)`;
-        }
-        
-        function resetTilt() {
-            let container = document.getElementById("main-content");
-            container.style.transform = `perspective(500px) rotateX(0deg) rotateY(0deg)`;
+        function createPetals() {
+            setInterval(() => {
+                let petal = document.createElement("div");
+                petal.classList.add("petal");
+                document.body.appendChild(petal);
+                petal.style.left = Math.random() * window.innerWidth + "px";
+                petal.style.animationDuration = 3 + Math.random() * 2 + "s";
+                petal.style.opacity = Math.random();
+                setTimeout(() => { petal.remove(); }, 5000);
+            }, 200);
         }
     </script>
 </body>
